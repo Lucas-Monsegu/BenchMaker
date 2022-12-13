@@ -1,0 +1,47 @@
+{
+    "TESTS": {
+        "django": {
+            "average": [
+                3214.049,
+                7113.326,
+                6959.087,
+                8533.27,
+                10691.16,
+                10361.365,
+                13223.37,
+                13092.117,
+                14764.477,
+                15256.763
+            ],
+            "version": "python 3.6.7 django 2.2.1",
+            "numberoftests": 5,
+            "code": "def index(request):\n    return HttpResponse(\"hello world\")"
+        },
+        "aiohttp": {
+            "average": [
+                474.808,
+                1017.72,
+                1547.659,
+                2233.287,
+                3003.477,
+                3527.709,
+                4270.655,
+                4784.943,
+                5534.459,
+                6713.293
+            ],
+            "version": "python 3.6.7 aiohttp 3.5.4",
+            "numberoftests": 5,
+            "code": "from aiohttp import web\n\nroutes = web.RouteTableDef()\n\n@routes.get('/')\nasync def hello_world(request):\n    return web.Response(text='hello world')\n\napp = web.Application()\napp.router.add_routes(routes)\nif __name__=='__main__':\n    web.run_app(app, port = '8000')"
+        }
+    },
+    "CPU": "x86_64",
+    "VALUE": "milliseconds",
+    "DESCRIPTION": "",
+    "RANGE": [
+        1000,
+        10000,
+        1000
+    ],
+    "AUTHOR": "Lucas Monsegu"
+}

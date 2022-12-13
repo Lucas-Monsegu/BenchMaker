@@ -1,0 +1,109 @@
+{
+    "TESTS": {
+        "in keyword": {
+            "average": [
+                0.448,
+                0.474,
+                0.508,
+                0.513,
+                0.535,
+                0.566,
+                0.562,
+                0.587,
+                0.596
+            ],
+            "version": "python 3.6.7",
+            "numberoftests": 10,
+            "code": "    s = 'b'* length + '$' + 'b'* length\n    a = time.time()\n    for i in range(10000):\n        b = '$' in s\n    print((time.time() - a) * 1000)"
+        },
+        "numpy": {
+            "average": [
+                38.323,
+                38.095,
+                36.534,
+                38.487,
+                38.108,
+                38.612,
+                38.266,
+                38.585,
+                38.006
+            ],
+            "version": "python 3.6.7",
+            "numberoftests": 10,
+            "code": "    s = 'big sentence'* length + '$' + 'big sentence'* length\n    n = numpy.array(s)\n    a = time.time()\n    for i in range(10000):\n        b = '$' in n\n    print((time.time() - a) * 1000)"
+        },
+        "looping": {
+            "average": [
+                683.085,
+                1359.401,
+                2384.325,
+                3159.59,
+                3948.693,
+                4707.117,
+                5495.825,
+                6320.554,
+                7058.551
+            ],
+            "version": "python 3.6.7",
+            "numberoftests": 10,
+            "code": "    s = 'big sentence'* length + '$' + 'big sentence'* length\n    a = time.time()\n    for i in range(10000):\n        b = False\n        for j in s:\n            if j == '$':\n                b = True\n                break\n    print((time.time() - a) * 1000)"
+        },
+        "pypy in": {
+            "average": [
+                0.884,
+                1.02,
+                1.1,
+                1.131,
+                1.263,
+                1.279,
+                1.332,
+                1.51,
+                1.508
+            ],
+            "version": "PyPy 7.1.1-beta075",
+            "numberoftests": 10,
+            "code": "    s = 'b'* length + '$' + 'b'* length\n    a = time.time()\n    for i in range(10000):\n        b = '$' in s\n    print((time.time() - a) * 1000)"
+        },
+        "pypy loop": {
+            "average": [
+                155.817,
+                316.071,
+                461.942,
+                623.516,
+                767.778,
+                1131.466,
+                1204.488,
+                1450.67,
+                1618.34
+            ],
+            "version": "PyPy 7.1.1-beta0",
+            "numberoftests": 10,
+            "code": "    s = 'big sentence'* length + '$' + 'big sentence'* length\n    a = time.time()\n    for i in range(10000):\n        b = False\n        for j in s:\n            if j == '$':\n                b = True\n                break\n    print((time.time() - a) * 1000)"
+        },
+        "'$$' in": {
+            "average": [
+                2.193,
+                3.495,
+                5.639,
+                7.277,
+                8.708,
+                10.212,
+                11.094,
+                12.729,
+                14.51
+            ],
+            "version": "python 3.6.7",
+            "numberoftests": 10,
+            "code": "    s = 'b'* length + '$' + 'b'* length\n    a = time.time()\n    for i in range(10000):\n        b = '$$' in s\n    print((time.time() - a) * 1000)"
+        }
+    },
+    "CPU": "x86_64",
+    "VALUE": "milliseconds",
+    "DESCRIPTION": "Test of different methods to check if an element is present in a string.\n This benchmark is intresting because it reveals python's string implementation. As you can see checking with the keyword in is constant. This can be explained by the fact that CPython/Pypy both use a set containing every characters of the string. Therefore checking if a single character is in a string is constant since it's just a check in a set. You can see that with '$$' python can't use its set so it has to check in the whole string which takes much more time.",
+    "RANGE": [
+        200,
+        1800,
+        200
+    ],
+    "AUTHOR": "Lucas Monsegu"
+}

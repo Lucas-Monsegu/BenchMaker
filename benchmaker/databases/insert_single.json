@@ -1,0 +1,48 @@
+{
+    "TESTS": {
+        "postgreSQL": {
+            "average": [
+                36.587,
+                392.345,
+                767.7,
+                1146.346,
+                1515.988,
+                1915.264,
+                2320.663,
+                2557.067,
+                2895.653,
+                3331.067,
+                3604.862
+            ],
+            "version": "PostgreSQL 11.3",
+            "numberoftests": 10,
+            "code": "    insert_query = 'insert into test (title) values (%s)'\n    t = time.time()\n    for i in range(numdata):\n        cursor.execute(insert_query, data)\n        connection.commit()\n    print((time.time()-t) * 1000)"
+        },
+        "mongo": {
+            "average": [
+                225.995,
+                527.944,
+                833.87,
+                1110.616,
+                1369.208,
+                1622.559,
+                1939.373,
+                2223.782,
+                2446.759,
+                2821.917,
+                3182.985
+            ],
+            "version": "mongo 4.0.5",
+            "numberoftests": 10,
+            "code": "documents = [{'title': 'Benchmark'} for i in range(numdata)]\nt = time.time()\nfor i in range(numdata):\n    col.insert_one(documents[i])\nprint((time.time() - t) * 1000)"
+        }
+    },
+    "CPU": "Intel64 Family 6 Model 94 Stepping 3, GenuineIntel",
+    "VALUE": "milliseconds",
+    "DESCRIPTION": "",
+    "RANGE": [
+        100,
+        10100,
+        1000
+    ]
+}

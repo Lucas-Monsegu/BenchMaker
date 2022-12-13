@@ -1,0 +1,81 @@
+{
+    "TESTS": {
+        "aiohttp": {
+            "average": [
+                0.501,
+                1.092,
+                1.847,
+                2.571,
+                3.188,
+                3.835,
+                4.559,
+                5.254,
+                6.047,
+                6.671
+            ],
+            "version": "python 3.6.7",
+            "numberoftests": 10,
+            "code": "from aiohttp import web\n\nroutes = web.RouteTableDef()\n\n@routes.get('/')\nasync def hello_world(request):\n    return web.Response(text='hello')\n\napp = web.Application()\napp.router.add_routes(routes)\nif __name__=='__main__':\n    web.run_app(app, port = '5000')"
+        },
+        "pypy aiohttp": {
+            "average": [
+                1.43,
+                1.465,
+                2.114,
+                2.89,
+                3.75,
+                4.55,
+                4.962,
+                5.761,
+                6.355,
+                7.205
+            ],
+            "version": "PyPy 7.1.1-beta0",
+            "numberoftests": 5,
+            "code": "from aiohttp import web\n\nroutes = web.RouteTableDef()\n\n@routes.get('/')\nasync def hello_world(request):\n    return web.Response(text='hello')\n\napp = web.Application()\napp.router.add_routes(routes)\nif __name__=='__main__':\n    web.run_app(app, port = '5000')"
+        },
+        "flask": {
+            "average": [
+                1.154,
+                2.209,
+                3.466,
+                4.988,
+                6.231,
+                7.609,
+                8.786,
+                10.082,
+                11.283,
+                12.515
+            ],
+            "version": "python 3.6.7",
+            "numberoftests": 5,
+            "code": "from flask import Flask\nimport logging\n\napp = Flask(__name__)\n\n@app.route('/')\ndef hello_world():\n    return 'hello'\n\nlog = logging.getLogger('werkzeug')\nlog.disabled = True\napp.logger.disabled = True\nif __name__=='__main__':\n    app.run(port='5000')"
+        },
+        "pypy flask": {
+            "average": [
+                2.478,
+                2.441,
+                3.069,
+                4.324,
+                5.376,
+                6.677,
+                7.822,
+                8.816,
+                10.122,
+                10.737
+            ],
+            "version": "PyPy 7.1.1-beta0",
+            "numberoftests": 5,
+            "code": "from flask import Flask\nimport logging\n\napp = Flask(__name__)\n\n@app.route('/')\ndef hello_world():\n    return 'hello'\n\nlog = logging.getLogger('werkzeug')\nlog.disabled = True\napp.logger.disabled = True\nif __name__=='__main__':\n    app.run(port='5000')"
+        }
+    },
+    "CPU": "x86_64",
+    "VALUE": "milliseconds",
+    "DESCRIPTION": "Time it takes to fetch N requests from aiohttp and flask server.",
+    "RANGE": [
+        1000,
+        10000,
+        1000
+    ],
+    "AUTHOR": "Lucas Monsegu"
+}

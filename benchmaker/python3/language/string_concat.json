@@ -1,0 +1,103 @@
+{
+    "TESTS": {
+        "+=": {
+            "average": [
+                0.001,
+                0.863,
+                1.713,
+                2.674,
+                3.382,
+                3.764,
+                4.201,
+                4.853,
+                5.631,
+                6.161,
+                6.853
+            ],
+            "version": "python 3.6.7",
+            "numberoftests": 10,
+            "code": "    res = ''\n    li = list(map(str, range(n)))    \n    t = time.time()\n    for a in li:\n        res += a\n    res += '\\n'\n    print((time.time() - t)*1000)"
+        },
+        "join": {
+            "average": [
+                0.001,
+                0.097,
+                0.378,
+                0.447,
+                0.612,
+                0.809,
+                0.935,
+                1.064,
+                1.259,
+                1.568,
+                1.679
+            ],
+            "version": "python 3.6.7",
+            "numberoftests": 10,
+            "code": "    res = ''\n    li = list(map(str, range(n)))\n    t = time.time()\n    ''.join(li)\n    print((time.time() - t)*1000)"
+        },
+        "+= with ref": {
+            "average": [
+                0.001,
+                9.918,
+                55.547,
+                226.716,
+                522.132,
+                934.547,
+                1700.092,
+                2262.798,
+                3241.077,
+                4531.801,
+                5679.798
+            ],
+            "version": "python 3.6.7",
+            "numberoftests": 10,
+            "code": "    res = ''\n    li = list(map(str, range(n)))    \n    t = time.time()\n    b = res\n    for a in li:\n        res += a\n        b = res\n    res += '\\n'\n    print((time.time() - t)*1000)"
+        },
+        "+= pypy": {
+            "average": [
+                0.003,
+                13.978,
+                63.078,
+                160.81,
+                383.141,
+                688.879,
+                1061.782,
+                1529.512,
+                2059.805,
+                2701.086,
+                3531.844
+            ],
+            "version": "python 3.6.7",
+            "numberoftests": 10,
+            "code": "    res = ''\n    li = list(map(str, range(n)))    \n    t = time.time()\n    for a in li:\n        res += a\n    res += '\\n'\n    print((time.time() - t)*1000)"
+        },
+        "+= ref pypy": {
+            "average": [
+                0.003,
+                14.067,
+                63.342,
+                161.834,
+                387.129,
+                681.569,
+                1058.643,
+                1527.696,
+                2090.781,
+                2760.761,
+                3568.17
+            ],
+            "version": "python 3.6.7",
+            "numberoftests": 10,
+            "code": "    res = ''\n    li = list(map(str, range(n)))    \n    t = time.time()\n    b = res\n    for a in li:\n        res += a\n        b = res\n    res += '\\n'\n    print((time.time() - t)*1000)"
+        }
+    },
+    "CPU": "x86_64",
+    "VALUE": "milliseconds",
+    "DESCRIPTION": "Of course join is the best way to archieve this because it creates a single string from the enumerator. What is intresting is that += with python is not that bad. It's because when possible Python does an optimisation to not create a new string each time. To not break the immutable rule Python check if no other references to that string exists. If it finds none it will try to modify the string instead of making a copy. As you can see pypy does not do this trick, that's why it's much slower on this example.",
+    "RANGE": [
+        0,
+        100000,
+        10000
+    ],
+    "AUTHOR": "Lucas Monsegu"
+}

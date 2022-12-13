@@ -1,0 +1,66 @@
+{
+    "TESTS": {
+        "zip": {
+            "average": [
+                0.002,
+                0.088,
+                0.191,
+                0.279,
+                0.361,
+                0.435,
+                0.52,
+                0.597,
+                0.711,
+                0.814,
+                0.878
+            ],
+            "version": "",
+            "numberoftests": 100,
+            "code": "L1 = list(range(n))\nL2 = list(range(n))\nres = []\nt = time.time()\nfor a in zip(L1, L2):\n    res += a\nprint((time.time() - t)*1000)"
+        },
+        "itertools": {
+            "average": [
+                0.004,
+                0.163,
+                0.33,
+                0.463,
+                0.63,
+                0.792,
+                1.225,
+                1.421,
+                1.641,
+                1.768,
+                1.913
+            ],
+            "version": "",
+            "numberoftests": 100,
+            "code": "L1 = list(range(n))\nL2 = list(range(n))\nt = time.time()\nres = list(itertools.chain(*zip(L1, L2)))\nprint((time.time() - t)*1000"
+        },
+        "numpy_reshape": {
+            "average": [
+                0.011,
+                0.459,
+                1.349,
+                1.727,
+                2.088,
+                2.469,
+                2.843,
+                3.245,
+                3.567,
+                3.976,
+                4.381
+            ],
+            "version": "",
+            "numberoftests": 100,
+            "code": "L1 = list(range(n))\nL2 = list(range(n))\nt = time.time()\nres = np.array([*zip(L1, L2)]).reshape(-1)\nprint((time.time() - t)*1000)\n"
+        }
+    },
+    "CPU": "x86_64",
+    "VALUE": "milliseconds",
+    "DESCRIPTION": "The goal is to find the fastest way to create a list L from L1 and L2 such as L = [L1[0], L2[0], L1[1], L2[1], ... , L1[n], L2[n]]",
+    "RANGE": [
+        0,
+        10000,
+        1000
+    ]
+}

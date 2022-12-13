@@ -1,0 +1,26 @@
+{
+  "TESTS": {
+    "wildfly": {
+      "average": [
+        562.438,
+        1210.13,
+        1949.428,
+        2808.273,
+        3575.883,
+        4623.644,
+        5315.948,
+        5647.279,
+        6367.686,
+        7000.868
+      ],
+      "version": "17.0.1",
+      "numberoftests": 10,
+      "code": "@Path(\"/hello\")\n@Produces(\"application/json; charset=UTF-8\")\npublic class ExampleController {\n    @GET\n    @Path((\"/{name}\"))\n    public String someone(@PathParam(\"name\") final String name){\n        return \"Hello \" + name;\n    }\n}"
+    }
+  },
+  "CPU": "x86_64",
+  "VALUE": "milliseconds",
+  "DESCRIPTION": "",
+  "RANGE": [1000, 10000, 1000],
+  "AUTHOR": "Lucas Monsegu"
+}

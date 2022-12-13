@@ -1,0 +1,46 @@
+{
+    "TESTS": {
+        "aiohttp": {
+            "average": [
+                1018.894,
+                2204.208,
+                3638.2,
+                4753.126,
+                6302.061,
+                7305.215,
+                8657.027,
+                9985.827,
+                11249.125,
+                12538.922
+            ],
+            "version": "version python 3.6.7 aiohttp 3.5.4",
+            "numberoftests": 10,
+            "code": "from aiohttp import web\n\nroutes = web.RouteTableDef()\n\n@routes.get('/')\nasync def hello_world(request):\n    return web.Response(text='hello world')\n\napp = web.Application()\napp.router.add_routes(routes)\nif __name__=='__main__':\n    web.run_app(app, port = '8000')"
+        },
+        "node": {
+            "average": [
+                1006.571,
+                2045.137,
+                3123.013,
+                4201.521,
+                5460.532,
+                6679.277,
+                8087.312,
+                8994.86,
+                10101.417,
+                11640.821
+            ],
+            "version": "version python 3.6.7 aiohttp 3.5.4",
+            "numberoftests": 10,
+            "code": "const http = require('http');\n\nconst hostname = '127.0.0.1';\nconst port = 8000;\n\nconst server = http.createServer((req, res) => {\n  res.statusCode = 200;\n  res.setHeader('Content-Type', 'text/plain');\n  res.end('Hello World\\n');\n});\n\nserver.listen(port, hostname, () => {\n  console.log(`Server running at http://${hostname}:${port}/`);\n});"
+        }
+    },
+    "CPU": "x86_64",
+    "VALUE": "milliseconds",
+    "DESCRIPTION": "",
+    "RANGE": [
+        2000,
+        20000,
+        2000
+    ]
+}

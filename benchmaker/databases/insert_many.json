@@ -1,0 +1,85 @@
+{
+    "TESTS": {
+        "mongo": {
+            "average": [
+                239.344,
+                388.112,
+                532.95,
+                684.493,
+                821.987,
+                954.155,
+                1175.597,
+                1232.967,
+                1386.869,
+                1464.756,
+                1567.693
+            ],
+            "version": "mongo 4.0.5",
+            "numberoftests": 10,
+            "code": "numdata = int(sys.argv[1])\ndocuments = [{'title': 'Benchmark'} for i in range(numdata)]\nt = time.time()\ncol.insert_many(documents)\nprint((time.time() - t) * 1000)"
+        },
+        "postgreSQL": {
+            "average": [
+                9.318,
+                72.852,
+                194.024,
+                297.857,
+                492.089,
+                518.991,
+                669.764,
+                707.431,
+                967.069,
+                875.619,
+                1134.549
+            ],
+            "version": "PostgreSQL 11.3",
+            "numberoftests": 10,
+            "code": "    numdata = int(sys.argv[1])\n    records_list_template = ','.join(['%s'] * numdata)\n    data = [('test',) for i in range(numdata)]\n    insert_query = 'insert into test (title) values {}'.format(records_list_template)\n    t = time.time()\n    cursor.execute(insert_query, data)\n    print((time.time()-t) * 1000)"
+        },
+        "mongo unordered bypassValidation": {
+            "average": [
+                214.917,
+                379.417,
+                513.233,
+                674.384,
+                800.043,
+                960.412,
+                1180.667,
+                1218.491,
+                1404.16,
+                1528.321,
+                1561.627
+            ],
+            "version": "mongo 4.0.5",
+            "numberoftests": 10,
+            "code": "numdata = int(sys.argv[1])\ndocuments = [{'title': 'Benchmark'} for i in range(numdata)]\nt = time.time()\ncol.insert_many(documents, ordered=False, bypass_document_validation=True )\nprint((time.time() - t) * 1000)"
+        },
+        "postgreSQL individual insert (single transaction)": {
+            "average": [
+                66.885,
+                678.608,
+                1265.491,
+                1894.424,
+                2508.524,
+                3122.952,
+                3690.371,
+                4293.922,
+                4925.487,
+                5532.07,
+                6264.944
+            ],
+            "version": "PostgreSQL 11.3",
+            "numberoftests": 10,
+            "code": "    t = time.time()\n    for i in range(numdata):\n        cursor.execute(insert_query, data)\n    connection.commit()\n    print((time.time()-t) * 1000)"
+        }
+    },
+    "CPU": "Intel64 Family 6 Model 94 Stepping 3, GenuineIntel",
+    "VALUE": "milliseconds",
+    "DESCRIPTION": "Each collections or tables are emptied before any tests. The postegre table contains an id(primary key) and a text field",
+    "RANGE": [
+        1000,
+        101000,
+        10000
+    ],
+    "AUTHOR": "Lucas Monsegu"
+}
