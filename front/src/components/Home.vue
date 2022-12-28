@@ -1,22 +1,9 @@
 <template>
   <v-content>
-    <v-layout
-      py-2
-      px-2
-      fill-height
-      wrap
-    >
-      <v-flex
-        py-2
-        px-2
-        xs12
-        md4
-      >
+    <v-layout py-2 px-2 fill-height wrap>
+      <v-flex py-2 px-2 xs12 md4>
         <v-card class="card">
-          <v-layout
-            column
-            fill-height
-          >
+          <v-layout column fill-height>
             <v-sheet class="pa-3 primary lighten-2">
               <v-layout>
                 <AboutModal />
@@ -31,19 +18,12 @@
                   clearable
                   clear-icon="mdi-close-circle-outline"
                 ></v-text-field>
-                <v-btn
-                  icon
-                  class="mr-0"
-                  @click="refresh"
-                >
+                <v-btn icon class="mr-0" @click="refresh">
                   <v-icon color="white">{{ icon }}</v-icon>
                 </v-btn>
               </v-layout>
             </v-sheet>
-            <v-flex
-              grow
-              id="cardTree"
-            >
+            <v-flex grow id="cardTree">
               <v-treeview
                 class="scroll"
                 ref="tree"
@@ -58,22 +38,17 @@
                 item-children="contents"
               >
                 <template v-slot:prepend="{ item, open }">
-                  <v-icon v-if="item.type === 'directory'">
-                    {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
+                  <v-icon v-if="item.type === 'tree'">
+                    {{ open ? "mdi-folder-open" : "mdi-folder" }}
                   </v-icon>
-                  <v-icon v-else>
-                    mdi-file
-                  </v-icon>
+                  <v-icon v-else> mdi-file </v-icon>
                 </template>
               </v-treeview>
             </v-flex>
           </v-layout>
         </v-card>
       </v-flex>
-      <v-flex
-        px-2
-        py-2
-      >
+      <v-flex px-2 py-2>
         <v-card class="card">
           <v-layout
             v-if="!selected"
@@ -99,24 +74,16 @@
               ></v-progress-circular>
             </div>
           </v-layout>
-          <v-layout
-            class="scroll"
-            v-else
-            column
-          >
-            <v-layout
-              shrink
-              justify-center
-              mb-2
-              wrap
-            >
+          <v-layout class="scroll" v-else column>
+            <v-layout shrink justify-center mb-2 wrap>
               <v-chip
                 label
                 color="primary lighten-2"
                 text-color="white"
                 disabled
               >
-                <v-icon left>mdi-account</v-icon>{{ benchmark[selected].AUTHOR }}
+                <v-icon left>mdi-account</v-icon
+                >{{ benchmark[selected].AUTHOR }}
               </v-chip>
               <v-chip
                 label
@@ -135,22 +102,17 @@
                 <v-icon left>mdi-chip</v-icon>{{ benchmark[selected].CPU }}
               </v-chip>
             </v-layout>
-            <v-layout
-              shrink
-              justify-center
-              my-2
-            >
-              <v-flex
-                xs12
-                md8
-              >
+            <v-layout shrink justify-center my-2>
+              <v-flex xs12 md8>
                 <v-sheet
                   color="grey lighten-2"
                   elevation="2"
                   class="break-word pa-2"
                 >
                   <div class="title text-xs-center pb-2">Description</div>
-                  <div class="text-xs-center">{{ benchmark[selected].DESCRIPTION }}</div>
+                  <div class="text-xs-center">
+                    {{ benchmark[selected].DESCRIPTION }}
+                  </div>
                 </v-sheet>
               </v-flex>
             </v-layout>
@@ -161,10 +123,7 @@
               :is="benchmark[selected].RANGE ? 'LineChart' : 'BarChart'"
             />
             <div class="my-2 title text-xs-center">Code</div>
-            <v-layout
-              justify-center
-              wrap
-            >
+            <v-layout justify-center wrap>
               <v-flex
                 shrink
                 xs12
@@ -173,11 +132,10 @@
                 :key="index"
               >
                 <div class="mt-1 subheading text-xs-center">{{ index }}</div>
-                <div class="body-2 text-xs-center">{{ item.numberoftests }} tests - {{ item.version}}</div>
-                <highlight-code
-                  class="nobefore"
-                  auto
-                >
+                <div class="body-2 text-xs-center">
+                  {{ item.numberoftests }} tests - {{ item.version }}
+                </div>
+                <highlight-code class="nobefore" auto>
                   {{ item.code }}
                 </highlight-code>
               </v-flex>
@@ -191,6 +149,7 @@
 
 <script>
 import axios from 'axios'
+import base64 from 'base-64'
 import BarChart from '@/components/BarChart'
 import LineChart from '@/components/LineChart'
 import AboutModal from '@/components/AboutModal'
@@ -207,7 +166,8 @@ export default {
       open: [],
       tree: [],
       active: [],
-      items: []
+      items: [],
+      infoTree: []
     }
   },
   computed: {
@@ -222,7 +182,9 @@ export default {
     range (min, max, step = 1) {
       const arr = []
       const totalSteps = Math.floor((max - min) / step)
-      for (let ii = 0; ii <= totalSteps; ii++) { arr.push(ii * step + min) }
+      for (let ii = 0; ii <= totalSteps; ii++) {
+        arr.push(ii * step + min)
+      }
       return arr
     },
     hslToRgb (h, s, l) {
@@ -244,7 +206,12 @@ export default {
         g = hue2rgb(p, q, h)
         b = hue2rgb(p, q, h - 1 / 3)
       }
-      return '#' + Math.round(r * 255).toString(16) + Math.round(g * 255).toString(16) + Math.round(b * 255).toString(16)
+      return (
+        '#' +
+        Math.round(r * 255).toString(16) +
+        Math.round(g * 255).toString(16) +
+        Math.round(b * 255).toString(16)
+      )
     },
     generate_colors (n) {
       let step = 360 / n
@@ -256,33 +223,69 @@ export default {
     },
     getFile (selected) {
       if (selected && !this.benchmark[selected]) {
-        return axios(selected).then(res => {
-          let data = res.data
-          const split = selected.split('/')
-          data.NAME = split[split.length - 1]
-          if (!data.DESCRIPTION) { data.DESCRIPTION = 'Empty' }
-          if (!data.AUTHOR) { data.AUTHOR = 'Anonymous' }
-          if (!data.RANGE) {
-            data.VALUES = []
-            for (let key in data.TESTS) { data.VALUES.push(data.TESTS[key].average) }
-          } else {
-            data.RANGE = this.range(...data.RANGE)
-            data.COLORS = this.generate_colors(Object.keys(data.TESTS).length)
-          }
-          this.$set(this.benchmark, selected, data)
-        }).catch(() => {
-          console.log('error')
-        })
+        const selectedNode = this.infoTree.find(el => el.path === selected)
+        return axios(selectedNode.url)
+          .then((res) => {
+            let data = res.data
+            data = JSON.parse(base64.decode((res.data.content)))
+            const split = selected.split('/')
+            data.NAME = split[split.length - 1]
+            if (!data.DESCRIPTION) {
+              data.DESCRIPTION = 'Empty'
+            }
+            if (!data.AUTHOR) {
+              data.AUTHOR = 'Anonymous'
+            }
+            if (!data.RANGE) {
+              data.VALUES = []
+              for (let key in data.TESTS) {
+                data.VALUES.push(data.TESTS[key].average)
+              }
+            } else {
+              data.RANGE = this.range(...data.RANGE)
+              data.COLORS = this.generate_colors(
+                Object.keys(data.TESTS).length
+              )
+            }
+            this.$set(this.benchmark, selected, data)
+          })
+          .catch(() => {
+            console.log('error')
+          })
       }
       return Promise.resolve()
     },
     getFiles () {
-      return axios('/api/git-tree').then(res => {
-        this.items = res.data
+      return axios(
+        'https://api.github.com/repos/Lucas-Monsegu/BenchMaker/git/trees/main?recursive=3'
+      ).then((res) => {
+        this.infoTree = res.data.tree
+        const data = this.change_format(this.infoTree)
+        this.items = data
         this.$nextTick(() => {
           this.$refs.tree.updateAll(true)
         })
       })
+    },
+    change_format (data) {
+      function constructTree (list, startsWith, level) {
+        for (let element of data.filter(x => x.path.startsWith(startsWith + '/'))) {
+          if (element.path.split('/').length !== level + 1) { continue }
+          if (element.type === 'tree') {
+            const newStartsWith = element.path
+            const newList = []
+            list.push({type: 'directory', name: element.path, shortname: element.path.split('/').at(-1), contents: newList})
+            constructTree(newList, newStartsWith, level + 1)
+          }
+
+          if (element.type === 'blob' && element.path.endsWith('.json')) {
+            list.push({type: 'file', name: element.path, shortname: element.path.split('/').at(-1), url: element.url})
+          }
+        }
+        return list
+      }
+      // const tree = {type: 'directory', name: 'benchmaker', contents: }
+      return constructTree([], 'benchmaker', 1)
     },
     refresh () {
       this.getFiles().then(() => {
