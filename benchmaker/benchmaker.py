@@ -60,7 +60,7 @@ def loadFileIfExists():
     return 'Loaded existing file, found tests: '+ ' | '.join(i for i in sargs['tests'])
 
 def askNumberOfTests():
-    print('number of tests:')
+    print('Number of time the test will be executed in order to make an average:')
     n = None
     while n == None:
         a = askInput()
@@ -71,7 +71,8 @@ def askNumberOfTests():
     sargs['numberoftests'] = n
 
 def askRange():
-    print('The range of the third argument: min_value(included) max_value(included) step_value, no range is a single 0')
+    print('3 values that will generate the number that will be passed to your program')
+    print('min max step: so for example 0 10 2 will send [0 2 4 6 8 10] (single 0 means no range)')
     isok = False
     while not isok:
         b = askInput().split(' ')
