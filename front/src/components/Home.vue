@@ -257,7 +257,7 @@ export default {
     },
     getFiles () {
       return axios(
-        'https://api.github.com/repos/Lucas-Monsegu/BenchMaker/git/trees/main?recursive=3'
+        process.env.VUE_APP_GITHUB_URL + '/git/trees/main?recursive=3'
       ).then((res) => {
         this.infoTree = res.data.tree
         const data = this.change_format(this.infoTree)
