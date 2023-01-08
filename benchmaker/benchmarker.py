@@ -1,13 +1,14 @@
-import sys
-import os
-import io
-import subprocess
-import json
-import platform
+#!/usr/bin/env python3
 import argparse
+import io
+import json
+import os
+import platform
 import signal
+import subprocess
 import sys
 from collections import OrderedDict
+
 parser = argparse.ArgumentParser(description='Tool to create a benchmark json file. \n\
         It launch N times the command and calculates de average.\n\
         The benchmark should print a single number during the execution corresponding to the unit (default milliseconds)')

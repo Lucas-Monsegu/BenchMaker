@@ -11,7 +11,8 @@ type a number between 1 to 8 press enter, then you can edit the corresponding fi
 `[~]` Means it's optional
 `[X]` Means it is set but still editable
 
-Once every required field is set you can type `run` to run the test and save the file. Once it is done you can `exit` the program
+
+Once every required field is set you can type `run` to run the test and save the file. You can run mutliple benchmark in a single file. It is usefull in order to compare them easily on the web page. To run multiple benchmark in a single file just launch run multiple time in the benchmaker shell changing the fields for the corresponding benchmark each time.
 
 You can type `help` to see the commands.
 

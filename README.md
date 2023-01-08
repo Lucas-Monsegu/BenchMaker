@@ -6,6 +6,7 @@ Benchmaker is a tool that helps you create benchmarks on everything that can be 
 
 - Fork this repo then copy the repo link
 - Click on the button below and paste the link in the VUE_APP_GITHUB_URL env variable
+
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FLucas-Monsegu%2FBenchMaker&env=VUE_APP_GITHUB_URL&project-name=benchmaker&repository-name=BenchMaker)
 
 
@@ -33,7 +34,7 @@ type a number between 1 to 8 press enter, then you can edit the corresponding fi
 `[~]` Means it's optional
 `[X]` Means it is set but still editable
 
-Once every required field is set you can type `run` to run the test and save the file. Once it is done you can `exit` the program
+Once every required field is set you can type `run` to run the test and save the file. You can run mutliple benchmark in a single file. It is usefull in order to compare them easily on the web page. To run multiple benchmark in a single file just launch run multiple time in the benchmaker shell changing the fields for the corresponding benchmark each time.
 
 You can type `help` to see the commands.
 
@@ -58,7 +59,3 @@ for development: `npm start`
 for build: `npm build`
 
 You can easily host this project yourself by replacing the repo link in the Home.vue file, might do an env variable for that in the future. Then you can host the front like myself on vercell or anything that hosts web pages.
-
-# Story of the project 🎩
-
-This is a two man project that we made during our studies. It goal was to do it for fun during one weekend. We did it in a week in the end.
